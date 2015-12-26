@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageControlsTest", "ImageControlsTest.csproj", "{FFF01D40-6524-4F0E-8A36-7D33BEA8FFFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageControls", "..\ImageControls\ImageControls.csproj", "{BFDD3A42-15D9-4911-BFCA-CDC61936A381}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFF01D40-6524-4F0E-8A36-7D33BEA8FFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF01D40-6524-4F0E-8A36-7D33BEA8FFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF01D40-6524-4F0E-8A36-7D33BEA8FFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF01D40-6524-4F0E-8A36-7D33BEA8FFFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDD3A42-15D9-4911-BFCA-CDC61936A381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDD3A42-15D9-4911-BFCA-CDC61936A381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDD3A42-15D9-4911-BFCA-CDC61936A381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDD3A42-15D9-4911-BFCA-CDC61936A381}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
