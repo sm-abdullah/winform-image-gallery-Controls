@@ -15,6 +15,8 @@ namespace ImageControls
             private ThumbTextPosition _ThumbTextPosition;
             private bool isSet;
 
+            public delegate void SelectDelegate(ThumbnailBox thumbnailBox);
+            public new event SelectDelegate Select;
             public ThumbTextPosition ThumbTextPosition
             {
                 get { return _ThumbTextPosition; }
@@ -23,11 +25,11 @@ namespace ImageControls
                     _ThumbTextPosition = value;
                     if (_ThumbTextPosition == ImageControls.ThumbTextPosition.Top)
                     {
-                        panel1.Dock = DockStyle.Top;
+                        labelPanel.Dock = DockStyle.Top;
                     }
                     else
                     {
-                        panel1.Dock = DockStyle.Bottom;
+                        labelPanel.Dock = DockStyle.Bottom;
                     }
                 }
             }
@@ -71,6 +73,35 @@ namespace ImageControls
                 _ThumbTextPosition = ThumbTextPosition.Top;
                 InitializeComponent();
                 ThumbPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
+                ThumbPictureBox.Click += delegate
+                {
+                    if (this.Select != null)
+                    {
+                        Select(this);
+                    }
+                };
+                thumbLabel.Click += delegate
+                {
+                    if (this.Select != null)
+                    {
+                        Select(this);
+                    }
+                };
+                labelPanel.Click += delegate
+                {
+                    if (this.Select != null)
+                    {
+                        Select(this);
+                    }
+                };
+                OuterPanel.Click += delegate
+                {
+                    if (this.Select != null)
+                    {
+                        Select(this);
+                    }
+                };
+
                 this.Resize += ThumbnailBox_Resize;
                 this.Load += ThumbnailBox_Load;
                 thumbLabel.Left = (this.Width - thumbLabel.Width) / 2;
@@ -79,29 +110,20 @@ namespace ImageControls
 
             void ThumbnailBox_Load(object sender, EventArgs e)
             {
-
                 adjust();
             }
-            protected override void OnPaint(PaintEventArgs e)
-            {
-                base.OnPaint(e);
-                //if (IsSelected)
-                // e.Graphics.DrawRectangle(new Pen(Color.Blue, 2), new Rectangle(this.Left - 2, this.Top - 2, this.Width - 4, this.Height - 2));
-            }
-
-
-
+          
             void ThumbnailBox_Resize(object sender, EventArgs e)
             {
                 adjust();
             }
             private void adjust()
             {
-                thumbLabel.Left = (this.panel1.Width - thumbLabel.Width) / 2;
-                panel2.Height = this.Height - 6;
-                panel2.Width = this.Width - 6;
-                panel2.Left = (this.Width - this.panel2.Width) / 2;
-                panel2.Top = (this.Height - panel2.Height) / 2;
+                thumbLabel.Left = (this.labelPanel.Width - thumbLabel.Width) / 2;
+                OuterPanel.Height = this.Height - 6;
+                OuterPanel.Width = this.Width - 6;
+                OuterPanel.Left = (this.Width - this.OuterPanel.Width) / 2;
+                OuterPanel.Top = (this.Height - OuterPanel.Height) / 2;
             }
         }
     

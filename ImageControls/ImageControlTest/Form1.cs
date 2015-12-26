@@ -20,16 +20,19 @@ namespace ImageControls
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-        }
-
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
             this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo2", Thumb = Image.FromFile("D:\\logo.png") });
             this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo3", Thumb = Image.FromFile("D:\\img.jpg") });
             this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo4", Thumb = Image.FromFile("D:\\logo.png") });
             this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo5", Thumb = Image.FromFile("D:\\logo.png") });
-        
+        }
+
+       
+
+
+        private void imageAccordion2_ThumbnailChanged(int OldIndex, int NewIndex, Image currentImage,string text)
+        {
+           thumbnailBox1.Thumb = currentImage;
+           thumbnailBox1.Caption = text;
         }
     }
 }

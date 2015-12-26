@@ -13,7 +13,14 @@ namespace ImageControls
     public partial class ImageAccordion : UserControl
     {
         private int index = 0;
+
         
+
+        public delegate void ThumbnailChangedDelegate(int OldIndex, int NewIndex, Image currentImage,string Text);
+        public event ThumbnailChangedDelegate ThumbnailChanged;
+
+        public Image Image { get { return this.ThumbnailsBox[index].BackgroundImage; } }
+
         public ImageAccordion()
         {
             InitializeComponent();
@@ -25,23 +32,44 @@ namespace ImageControls
             thumbnailBox.Width = this.Height;
             thumbnailBox.Height = this.Height - 10;
             this.ThumbnailsBox.Add(thumbnailBox);
+            
             this.flowLayoutPanel1.Controls.Add(thumbnailBox);
+            validateButtonState();
+            thumbnailBox.Select += thumbnailBox_Select;
 
         }
+
+        void thumbnailBox_Select(ThumbnailBox thumbnailBox)
+        {
+            var newIndex  = this.ThumbnailsBox.IndexOf(thumbnailBox);
+            ThumbnailsBox.ForEach(item => item.IsSelected = false);
+            thumbnailBox.IsSelected = true;
+            this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[newIndex]);
+            validateButtonState();
+            if (ThumbnailChanged != null)
+            {
+                ThumbnailChanged(index, newIndex, thumbnailBox.Thumb, thumbnailBox.Caption);
+            }
+        }
+
+       
         public void Remove(ThumbnailBox thumbnailBox)
         {
             this.ThumbnailsBox.Remove(thumbnailBox);
             flowLayoutPanel1.Controls.Remove(thumbnailBox);
+            thumbnailBox.Select -= thumbnailBox_Select;
+            validateButtonState();
+
             
         }
-        public void RemoveAll(Predicate<ThumbnailBox> match)
-        {
-            this.ThumbnailsBox.RemoveAll(match);
-        }
+      
         public void RemoveAt(int index)
         {
+            ThumbnailsBox[index].Select -= thumbnailBox_Select;
             this.flowLayoutPanel1.Controls.Remove(ThumbnailsBox[index]);
             this.ThumbnailsBox.RemoveAt(index);
+            
+            validateButtonState();
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -49,9 +77,9 @@ namespace ImageControls
             
             base.OnLoad(e);
 
-            this.flowLayoutPanel1.Left = accordionButton1.Left + accordionButton1.Width;
+            this.flowLayoutPanel1.Left = leftButton.Left + leftButton.Width;
             this.flowLayoutPanel1.Top = 0;
-            this.flowLayoutPanel1.Width = accordionButton2.Left - accordionButton1.Width;
+            this.flowLayoutPanel1.Width = rightButton.Left - leftButton.Width;
             this.flowLayoutPanel1.SendToBack();
             this.flowLayoutPanel1.Height = this.Height + 15;
             if (ThumbnailsBox != null && ThumbnailsBox.Count > 0)
@@ -66,55 +94,71 @@ namespace ImageControls
             }
         }
 
-        void Thumbnails_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            validateButtonState();
-        }
+      
      
       
        
 
-        private void accordionButton2_Click_1(object sender, EventArgs e)
+        private void rightButton_Click(object sender, EventArgs e)
         {
+
+          
+            
             if (ThumbnailsBox.Count > 0)
             {
-                if (index < ThumbnailsBox.Count - 1) index++;
+                if (index < ThumbnailsBox.Count - 1)
+                {
+                    if (ThumbnailChanged != null)
+                    {
+                        ThumbnailChanged(index, index + 1, ThumbnailsBox[index + 1].Thumb,ThumbnailsBox[index+1].Caption);
+                    }
+                    index++;
+                }
                 ThumbnailsBox.ForEach(item => item.IsSelected = false);
                 ThumbnailsBox[index].IsSelected = true;
                 this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[index]);
                 validateButtonState();
             }
            
+           
         }
         private void validateButtonState() 
         {
             if (index == ThumbnailsBox.Count - 1)
             {
-                accordionButton2.IsEnable = false;
+                rightButton.IsEnable = false;
             }
             else
             {
-                accordionButton2.IsEnable = true;
+                rightButton.IsEnable = true;
             }
             if (index == 0)
             {
-                accordionButton1.IsEnable = false;
+                leftButton.IsEnable = false;
             }
             else
             {
-                accordionButton1.IsEnable = true;
+                leftButton.IsEnable = true;
             }
         }
-        private void accordionButton1_Click(object sender, EventArgs e)
+        private void leftButton_Click(object sender, EventArgs e)
         {
-            if (ThumbnailsBox.Count > 0)
+            if (ThumbnailsBox.Count > 1)
             {
-                if (index > 0) index--;
+                if (index > 0)
+                {
+                    if (ThumbnailChanged != null)
+                    {
+                        ThumbnailChanged(index, index - 1, ThumbnailsBox[index - 1].Thumb, ThumbnailsBox[index - 1].Caption);
+                    }
+                    index--;
+                }
                 ThumbnailsBox.ForEach(item => item.IsSelected = false);
                 ThumbnailsBox[index].IsSelected = true;
                 this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[index]);
                 validateButtonState();
             }
+           
         }
 
         private List<ThumbnailBox> ThumbnailsBox;
