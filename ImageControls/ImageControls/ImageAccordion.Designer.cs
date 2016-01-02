@@ -76,6 +76,7 @@
             this.Controls.Add(this.leftButton);
             this.Name = "ImageAccordion";
             this.Size = new System.Drawing.Size(458, 121);
+            this.Resize += new System.EventHandler(this.ImageAccordion_Resize);
             this.ResumeLayout(false);
 
         }

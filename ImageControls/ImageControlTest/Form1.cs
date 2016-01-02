@@ -15,15 +15,20 @@ namespace ImageControls
         public Form1()
         {
             InitializeComponent();
-      
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo2", Thumb = Image.FromFile("D:\\logo.png") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo3", Thumb = Image.FromFile("D:\\img.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo4", Thumb = Image.FromFile("D:\\logo.png") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "logo5", Thumb = Image.FromFile("D:\\logo.png") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "water", Thumb = Image.FromFile("img\\img1.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "boat", Thumb = Image.FromFile("img\\img2.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "flower", Thumb = Image.FromFile("img\\img3.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "House", Thumb = Image.FromFile("img\\img4.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "Sea", Thumb = Image.FromFile("img\\img5.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "mountain", Thumb = Image.FromFile("img\\img6.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "ligtes", Thumb = Image.FromFile("img\\img7.jpg") });
+            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "night View", Thumb = Image.FromFile("img\\img8.jpg") });
+            this.imageAccordion2.SelectThumnail(0);
         }
 
        
