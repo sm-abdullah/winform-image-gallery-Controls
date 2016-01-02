@@ -17,18 +17,61 @@ namespace ImageControls
 
         private int indexCurrent = 0;
         private List<ThumbnailBox> ThumbnailsBox;
+        private Color _HoverColor;
+        private Color _SelectedColor;
+
         #endregion
         #region Public Properties
         //create a delegate for event to change Index 
-        public delegate void ThumbnailChangedDelegate(int OldIndex, int NewIndex, Image currentImage,string Text);
+        public delegate void ThumbnailChangedDelegate(int OldIndex, int NewIndex, Thumbnail thumbnail);
         [Browsable(true)]
-        [Category("Accordiong")]
+        [Category("Accordion")]
         [Description("Event will be Raised User change the Thumbnail")]
         public event ThumbnailChangedDelegate ThumbnailChanged;
+
+        [Browsable(true)]
+        [Category("Accordion")]
+        [Description("Set the Hover Color of Thumbnail or Button")]
+        public Color HoverColor
+        {
+            get{return _HoverColor;}
+            set 
+            {
+                _HoverColor = value;
+                 colorChanged(); 
+            }
+        }
+        [Browsable(true)]
+        [Category("Accordion")]
+        [Description("Set the Selectd Color of Thumbnail Or When mouse Clicked over a button")]
+        public Color SelectedColor
+        {
+            get{return _SelectedColor;}
+            set
+            {
+                _SelectedColor = value;
+                colorChanged();
+            }
+        }
 
         #endregion
        
         #region Utility Functions
+        private void colorChanged() 
+        {
+            leftButton.DownColor = this.SelectedColor;
+            leftButton.HoverColor = this.HoverColor;
+            rightButton.DownColor = this.SelectedColor;
+            rightButton.HoverColor = this.HoverColor;
+            if (this.ThumbnailsBox != null)
+            {
+                this.ThumbnailsBox.ForEach(item =>
+                {
+                    item.HoverColor = this.HoverColor;
+                    item.SelectedColor = this.SelectedColor;
+                });
+            }
+        }
         private void thumbnailBox_Select(ThumbnailBox thumbnailBox)
         {
             var newIndex = this.ThumbnailsBox.IndexOf(thumbnailBox);
@@ -98,59 +141,78 @@ namespace ImageControls
         
         #endregion
 
+        public List<Thumbnail> Thumbnails
+        {
+            get
+            {
+                return ThumbnailsBox.Select(item => item.Thumbnail).ToList();
+            }
+        }
+
         public ImageAccordion()
         {
             InitializeComponent();
+            HoverColor = Color.Purple;
+            SelectedColor = Color.DarkBlue;
             ThumbnailsBox = new List<ThumbnailBox>();
+           
         }
         #region Public Methods
 
-        public void Add(ThumbnailBox thumbnailBox) 
+        public void Add(Thumbnail thumbnail) 
         {
+            var thumbnailBox = new ThumbnailBox();
             thumbnailBox.Width = this.Height;
             thumbnailBox.Height = this.Height - 10;
             this.ThumbnailsBox.Add(thumbnailBox);
-            
+            thumbnailBox.Thumbnail = thumbnail;
             this.flowLayoutPanel1.Controls.Add(thumbnailBox);
             validateButtonState();
             thumbnailBox.Selected += thumbnailBox_Select;
 
         }
-
-        public void Remove(ThumbnailBox thumbnailBox)
-        {
-            this.ThumbnailsBox.Remove(thumbnailBox);
-            flowLayoutPanel1.Controls.Remove(thumbnailBox);
-            thumbnailBox.Selected -= thumbnailBox_Select;
-            validateButtonState();
-
-            
-        }
-      
         public void RemoveAt(int index)
         {
             ThumbnailsBox[index].Selected -= thumbnailBox_Select;
             this.flowLayoutPanel1.Controls.Remove(ThumbnailsBox[index]);
             this.ThumbnailsBox.RemoveAt(index);
-            
             validateButtonState();
         }
      
         public void SelectThumnail(int index)
         {
-            
                 if (ThumbnailChanged != null)
                 {
-                    ThumbnailChanged(indexCurrent, index, ThumbnailsBox[index].Thumb, ThumbnailsBox[index].Caption);
+                    ThumbnailChanged(indexCurrent, index, ThumbnailsBox[index].Thumbnail);
                 }
-                
-            
             ThumbnailsBox.ForEach(item => item.IsSelected = false);
             ThumbnailsBox[index].IsSelected = true;
             this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[index]);
             indexCurrent = index;
             validateButtonState();
            
+        }
+        /// <summary>
+        /// It will Select the Next Thumbnail or Move Next
+        /// </summary>
+        public void MoveNext() 
+        { 
+          var index = indexCurrent + 1;
+          if (index > 0 && index < ThumbnailsBox.Count - 1) 
+          {
+              SelectThumnail(index);
+          }
+        }
+        /// <summary>
+        /// it will Select the Previous Thumbnail or Move Back
+        /// </summary>
+        public void MoveBack() 
+        {
+            var index = indexCurrent - 1;
+            if (index > 0 && index < ThumbnailsBox.Count - 1)
+            {
+                SelectThumnail(index);
+            }
         }
 
         #endregion

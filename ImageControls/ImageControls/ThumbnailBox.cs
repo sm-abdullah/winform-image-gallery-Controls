@@ -10,16 +10,16 @@ using System.Windows.Forms;
 namespace ImageControls
 {
    
-       public partial class ThumbnailBox : UserControl
+       internal partial class ThumbnailBox : UserControl
        {
 
            private ThumbTextPosition _ThumbTextPosition;
+           private Thumbnail _Thumbnail;
            private bool isSet;
            #region Properties
            [Browsable(true)]
            [Category("Thumbnail")]
            [Description("Set the Selected Color of the Thumbnail")]
-        
            public Color SelectedColor { get; set; }
            [Browsable(true)]
            [Category("Thumbnail")]
@@ -68,26 +68,32 @@ namespace ImageControls
                }
            }
 
+         
            [Browsable(true)]
            [Category("Thumbnail")]
-           [Description("Get or Set Caption of the Thumanail")]
-           public string Caption
+           public Thumbnail Thumbnail 
            {
-               get { return thumbLabel.Text; }
-               set { thumbLabel.Text = value; thumbLabel.Left = (this.Width - thumbLabel.Width) / 2; }
-           }
-
-           [Browsable(true)]
-           [Category("Thumbnail")]
-           [Description("Get or Set Thumnail Image")]
-           public Image Thumb
-           {
-               get { return ThumbPictureBox.BackgroundImage; }
-               set
+               get { return _Thumbnail; }
+               set 
                {
-                   ThumbPictureBox.BackgroundImage = value;
+                   _Thumbnail = value;
+                   if (_Thumbnail != null)
+                   {
+                       thumbLabel.Text = _Thumbnail.Text;
+                       ThumbPictureBox.BackgroundImage = _Thumbnail.Image;
+                   }
+                   else 
+                   {
+                       thumbLabel.Text = "";
+                       ThumbPictureBox.BackgroundImage = null;
+                   }
+                   thumbLabel.Left = (this.Width - thumbLabel.Width) / 2;
+                   
                }
            }
+
+
+
 
            #endregion 
            #region Events
@@ -185,8 +191,10 @@ namespace ImageControls
                     this.BackColor = Color.Silver;
                 }
             }
-           
 
-        }
+
+
+           
+       }
     
 }

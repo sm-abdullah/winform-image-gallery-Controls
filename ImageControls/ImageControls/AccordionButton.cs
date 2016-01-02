@@ -12,7 +12,7 @@ using System.Drawing.Drawing2D;
 namespace ImageControls
 {
 
-    public partial class AccordionButton : Button
+    internal partial class AccordionButton : Button
     {
 
         #region  Private 
@@ -37,8 +37,24 @@ namespace ImageControls
                 _isEnable = value;
             }
         }
-        
 
+
+        [Browsable(true)]
+        [Category("AccordionButton")]
+        [Description("Set the Hover Color of Button")]
+        public Color HoverColor
+        {
+            get;
+            set;
+        }
+        [Browsable(true)]
+        [Category("AccordionButton")]
+        [Description("Set the Color When clicked on mouse")]
+        public Color DownColor
+        {
+            get;
+            set;
+        }
 
         [Browsable(true)]
         [Category("AccordionButton")]
@@ -54,6 +70,8 @@ namespace ImageControls
         {
             Face = AccodionButtonFace.Left;
             InitializeComponent();
+            HoverColor = Color.Orange;
+            DownColor = Color.DarkBlue;
 
         }
         #region Overrides
@@ -96,11 +114,11 @@ namespace ImageControls
             {
                 if (isButtonDown)
                 {
-                    color = Color.DarkBlue;
+                    color = DownColor;
                 }
                 else
                 {
-                    color = Color.Orange;
+                    color = HoverColor;
                 }
             }
             else

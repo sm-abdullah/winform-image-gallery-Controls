@@ -28,9 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.imageAccordion2 = new ImageControls.ImageAccordion();
-            this.thumbnailBox1 = new ImageControls.ThumbnailBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(79, 26);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(324, 204);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(132, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 24);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Silver;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(79, 234);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(324, 45);
+            this.panel1.TabIndex = 5;
             // 
             // imageAccordion2
             // 
@@ -41,29 +75,18 @@
             this.imageAccordion2.TabIndex = 2;
             this.imageAccordion2.ThumbnailChanged += new ImageControls.ImageAccordion.ThumbnailChangedDelegate(this.imageAccordion2_ThumbnailChanged);
             // 
-            // thumbnailBox1
-            // 
-            this.thumbnailBox1.BackColor = System.Drawing.Color.Silver;
-            this.thumbnailBox1.Caption = "label1";
-            this.thumbnailBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.thumbnailBox1.HoverColor = System.Drawing.Color.Orange;
-            this.thumbnailBox1.IsSelected = false;
-            this.thumbnailBox1.Location = new System.Drawing.Point(86, 12);
-            this.thumbnailBox1.Name = "thumbnailBox1";
-            this.thumbnailBox1.SelectedColor = System.Drawing.Color.DarkBlue;
-            this.thumbnailBox1.Size = new System.Drawing.Size(315, 254);
-            this.thumbnailBox1.TabIndex = 1;
-            this.thumbnailBox1.Thumb = null;
-            this.thumbnailBox1.ThumbTextPosition = ImageControls.ThumbTextPosition.Top;
-            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(486, 429);
-            this.Controls.Add(this.thumbnailBox1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.imageAccordion2);
             this.Name = "Form1";
             this.Text = "Image Thumbnail According Test";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -72,8 +95,10 @@
 
         private System.Windows.Forms.ImageList imageList1;
         private ImageAccordion imageAccordion1;
-        private ThumbnailBox thumbnailBox1;
         private ImageAccordion imageAccordion2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
      
 
 
