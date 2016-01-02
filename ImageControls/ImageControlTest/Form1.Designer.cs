@@ -35,27 +35,31 @@
             // imageAccordion2
             // 
             this.imageAccordion2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imageAccordion2.Location = new System.Drawing.Point(34, 213);
+            this.imageAccordion2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.imageAccordion2.Location = new System.Drawing.Point(0, 299);
             this.imageAccordion2.Name = "imageAccordion2";
-            this.imageAccordion2.Size = new System.Drawing.Size(438, 125);
-            this.imageAccordion2.TabIndex = 0;
+            this.imageAccordion2.Size = new System.Drawing.Size(486, 130);
+            this.imageAccordion2.TabIndex = 2;
             this.imageAccordion2.ThumbnailChanged += new ImageControls.ImageAccordion.ThumbnailChangedDelegate(this.imageAccordion2_ThumbnailChanged);
             // 
             // thumbnailBox1
             // 
-            this.thumbnailBox1.BackColor = System.Drawing.Color.Gray;
+            this.thumbnailBox1.BackColor = System.Drawing.Color.Silver;
             this.thumbnailBox1.Caption = "label1";
+            this.thumbnailBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.thumbnailBox1.HoverColor = System.Drawing.Color.Orange;
             this.thumbnailBox1.IsSelected = false;
-            this.thumbnailBox1.Location = new System.Drawing.Point(122, 26);
+            this.thumbnailBox1.Location = new System.Drawing.Point(86, 12);
             this.thumbnailBox1.Name = "thumbnailBox1";
-            this.thumbnailBox1.Size = new System.Drawing.Size(280, 165);
+            this.thumbnailBox1.SelectedColor = System.Drawing.Color.DarkBlue;
+            this.thumbnailBox1.Size = new System.Drawing.Size(301, 247);
             this.thumbnailBox1.TabIndex = 1;
             this.thumbnailBox1.Thumb = null;
             this.thumbnailBox1.ThumbTextPosition = ImageControls.ThumbTextPosition.Top;
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(551, 350);
+            this.ClientSize = new System.Drawing.Size(486, 429);
             this.Controls.Add(this.thumbnailBox1);
             this.Controls.Add(this.imageAccordion2);
             this.Name = "Form1";
@@ -68,8 +72,8 @@
 
         private System.Windows.Forms.ImageList imageList1;
         private ImageAccordion imageAccordion1;
-        private ImageAccordion imageAccordion2;
         private ThumbnailBox thumbnailBox1;
+        private ImageAccordion imageAccordion2;
 
 
     }

@@ -89,7 +89,7 @@ namespace ImageControls
             {
                 if (isButtonDown)
                 {
-                    color = Color.Red;
+                    color = Color.DarkBlue;
                 }
                 else
                 {

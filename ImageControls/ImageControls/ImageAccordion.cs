@@ -12,14 +12,18 @@ namespace ImageControls
 {
     public partial class ImageAccordion : UserControl
     {
-        private int index = 0;
+        private int indexCurrent = 0;
 
         
-
+        //create a delegate for event to change Index 
         public delegate void ThumbnailChangedDelegate(int OldIndex, int NewIndex, Image currentImage,string Text);
+        [Browsable(true)]
+        [Category("Accordiong")]
+        [Description("Event will be Raised User change the Thumbnail")]
         public event ThumbnailChangedDelegate ThumbnailChanged;
 
-        public Image Image { get { return this.ThumbnailsBox[index].BackgroundImage; } }
+
+     
 
         public ImageAccordion()
         {
@@ -27,6 +31,7 @@ namespace ImageControls
             ThumbnailsBox = new List<ThumbnailBox>();
         }
 
+        
         public void Add(ThumbnailBox thumbnailBox) 
         {
             thumbnailBox.Width = this.Height;
@@ -35,21 +40,14 @@ namespace ImageControls
             
             this.flowLayoutPanel1.Controls.Add(thumbnailBox);
             validateButtonState();
-            thumbnailBox.Select += thumbnailBox_Select;
+            thumbnailBox.Selected += thumbnailBox_Select;
 
         }
 
         void thumbnailBox_Select(ThumbnailBox thumbnailBox)
         {
             var newIndex  = this.ThumbnailsBox.IndexOf(thumbnailBox);
-            ThumbnailsBox.ForEach(item => item.IsSelected = false);
-            thumbnailBox.IsSelected = true;
-            this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[newIndex]);
-            validateButtonState();
-            if (ThumbnailChanged != null)
-            {
-                ThumbnailChanged(index, newIndex, thumbnailBox.Thumb, thumbnailBox.Caption);
-            }
+            SelectThumnail(newIndex);
         }
 
        
@@ -57,7 +55,7 @@ namespace ImageControls
         {
             this.ThumbnailsBox.Remove(thumbnailBox);
             flowLayoutPanel1.Controls.Remove(thumbnailBox);
-            thumbnailBox.Select -= thumbnailBox_Select;
+            thumbnailBox.Selected -= thumbnailBox_Select;
             validateButtonState();
 
             
@@ -65,7 +63,7 @@ namespace ImageControls
       
         public void RemoveAt(int index)
         {
-            ThumbnailsBox[index].Select -= thumbnailBox_Select;
+            ThumbnailsBox[index].Selected -= thumbnailBox_Select;
             this.flowLayoutPanel1.Controls.Remove(ThumbnailsBox[index]);
             this.ThumbnailsBox.RemoveAt(index);
             
@@ -76,55 +74,53 @@ namespace ImageControls
          
             
             base.OnLoad(e);
-
-            this.flowLayoutPanel1.Left = leftButton.Left + leftButton.Width;
-            this.flowLayoutPanel1.Top = 0;
-            this.flowLayoutPanel1.Width = rightButton.Left - leftButton.Width;
-            this.flowLayoutPanel1.SendToBack();
-            this.flowLayoutPanel1.Height = this.Height + 15;
+            ResizePanel();
+            
             if (ThumbnailsBox != null && ThumbnailsBox.Count > 0)
             {
-                ThumbnailsBox.ForEach(item =>
-                {
-                   
-
-                });
                 this.flowLayoutPanel1.Controls.AddRange(ThumbnailsBox.ToArray());
                 ThumbnailsBox.First().IsSelected = true;
             }
         }
 
-      
-     
-      
-       
 
-        private void rightButton_Click(object sender, EventArgs e)
+        private void ResizePanel() 
         {
+            this.flowLayoutPanel1.Left = leftButton.Left + leftButton.Width;
+            this.flowLayoutPanel1.Top = 0;
+            this.flowLayoutPanel1.Width = rightButton.Left - leftButton.Width;
+            this.flowLayoutPanel1.SendToBack();
+            this.flowLayoutPanel1.Height = this.Height + 15;
+        }
 
-          
+
+        public void SelectThumnail(int index)
+        {
             
-            if (ThumbnailsBox.Count > 0)
-            {
-                if (index < ThumbnailsBox.Count - 1)
+                if (ThumbnailChanged != null)
                 {
-                    if (ThumbnailChanged != null)
-                    {
-                        ThumbnailChanged(index, index + 1, ThumbnailsBox[index + 1].Thumb,ThumbnailsBox[index+1].Caption);
-                    }
-                    index++;
+                    ThumbnailChanged(indexCurrent, index, ThumbnailsBox[index].Thumb, ThumbnailsBox[index].Caption);
                 }
-                ThumbnailsBox.ForEach(item => item.IsSelected = false);
-                ThumbnailsBox[index].IsSelected = true;
-                this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[index]);
-                validateButtonState();
-            }
-           
+                
+            
+            ThumbnailsBox.ForEach(item => item.IsSelected = false);
+            ThumbnailsBox[index].IsSelected = true;
+            this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[index]);
+            indexCurrent = index;
+            validateButtonState();
            
         }
+        private void rightButton_Click(object sender, EventArgs e)
+        {
+            if (ThumbnailsBox.Count > 0 && indexCurrent < ThumbnailsBox.Count - 1)
+            {
+                SelectThumnail(indexCurrent + 1);
+            }
+        }
+
         private void validateButtonState() 
         {
-            if (index == ThumbnailsBox.Count - 1)
+            if (indexCurrent == ThumbnailsBox.Count - 1)
             {
                 rightButton.IsEnable = false;
             }
@@ -132,7 +128,7 @@ namespace ImageControls
             {
                 rightButton.IsEnable = true;
             }
-            if (index == 0)
+            if (indexCurrent == 0)
             {
                 leftButton.IsEnable = false;
             }
@@ -143,25 +139,19 @@ namespace ImageControls
         }
         private void leftButton_Click(object sender, EventArgs e)
         {
-            if (ThumbnailsBox.Count > 1)
+            if (ThumbnailsBox.Count > 1 && indexCurrent > 0)
             {
-                if (index > 0)
-                {
-                    if (ThumbnailChanged != null)
-                    {
-                        ThumbnailChanged(index, index - 1, ThumbnailsBox[index - 1].Thumb, ThumbnailsBox[index - 1].Caption);
-                    }
-                    index--;
-                }
-                ThumbnailsBox.ForEach(item => item.IsSelected = false);
-                ThumbnailsBox[index].IsSelected = true;
-                this.flowLayoutPanel1.ScrollControlIntoView(ThumbnailsBox[index]);
-                validateButtonState();
+                    SelectThumnail(indexCurrent - 1);
             }
            
         }
 
         private List<ThumbnailBox> ThumbnailsBox;
+
+        private void ImageAccordion_Resize(object sender, EventArgs e)
+        {
+            ResizePanel();
+        }
   
     }
 }

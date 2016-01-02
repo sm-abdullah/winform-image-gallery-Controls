@@ -56,6 +56,8 @@
             this.ThumbPictureBox.Size = new System.Drawing.Size(254, 117);
             this.ThumbPictureBox.TabIndex = 2;
             this.ThumbPictureBox.TabStop = false;
+            this.ThumbPictureBox.MouseEnter += new System.EventHandler(this.ThumbnailBox_MouseEnter);
+            this.ThumbPictureBox.MouseLeave += new System.EventHandler(this.ThumbnailBox_MouseLeave);
             // 
             // labelPanel
             // 
@@ -65,6 +67,8 @@
             this.labelPanel.Name = "labelPanel";
             this.labelPanel.Size = new System.Drawing.Size(254, 22);
             this.labelPanel.TabIndex = 3;
+            this.labelPanel.MouseEnter += new System.EventHandler(this.ThumbnailBox_MouseEnter);
+            this.labelPanel.MouseLeave += new System.EventHandler(this.ThumbnailBox_MouseLeave);
             // 
             // thumbLabel
             // 
@@ -75,15 +79,20 @@
             this.thumbLabel.TabIndex = 1;
             this.thumbLabel.Text = "label1";
             this.thumbLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.thumbLabel.MouseEnter += new System.EventHandler(this.ThumbnailBox_MouseEnter);
+            this.thumbLabel.MouseLeave += new System.EventHandler(this.ThumbnailBox_MouseLeave);
             // 
             // ThumbnailBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.Color.Silver;
             this.Controls.Add(this.OuterPanel);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "ThumbnailBox";
             this.Size = new System.Drawing.Size(280, 165);
+            this.MouseEnter += new System.EventHandler(this.ThumbnailBox_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.ThumbnailBox_MouseLeave);
             this.OuterPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ThumbPictureBox)).EndInit();
             this.labelPanel.ResumeLayout(false);
