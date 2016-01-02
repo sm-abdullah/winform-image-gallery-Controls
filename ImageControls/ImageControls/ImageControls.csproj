@@ -54,7 +54,6 @@
     <Compile Include="AccordionButton.Designer.cs">
       <DependentUpon>AccordionButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="ImageAccordion.cs">
       <SubType>UserControl</SubType>
     </Compile>
