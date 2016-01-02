@@ -110,29 +110,37 @@ namespace ImageControls
                 ThumbPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
                 ThumbPictureBox.Click += delegate
                 {
+                   
                     if (this.Selected != null)
                     {
+                        
                         Selected(this);
                     }
                 };
                 thumbLabel.Click += delegate
                 {
+                  
                     if (this.Selected != null)
                     {
+                        
                         Selected(this);
                     }
                 };
                 labelPanel.Click += delegate
                 {
+                  
                     if (this.Selected != null)
                     {
+                       
                         Selected(this);
                     }
                 };
                 OuterPanel.Click += delegate
                 {
+                  
                     if (this.Selected != null)
                     {
+                       
                         Selected(this);
                     }
                 };

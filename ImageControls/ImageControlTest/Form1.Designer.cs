@@ -74,6 +74,7 @@
         private ImageAccordion imageAccordion1;
         private ThumbnailBox thumbnailBox1;
         private ImageAccordion imageAccordion2;
+     
 
 
     }

@@ -61,7 +61,6 @@
       <DependentUpon>ImageAccordion.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThumbNail.cs" />
     <Compile Include="ThumbnailBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
