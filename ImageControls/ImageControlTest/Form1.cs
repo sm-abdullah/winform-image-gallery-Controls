@@ -20,24 +20,28 @@ namespace ImageControls
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "water", Thumb = Image.FromFile("img\\img1.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "boat", Thumb = Image.FromFile("img\\img2.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "flower", Thumb = Image.FromFile("img\\img3.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "House", Thumb = Image.FromFile("img\\img4.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "Sea", Thumb = Image.FromFile("img\\img5.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "mountain", Thumb = Image.FromFile("img\\img6.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "ligtes", Thumb = Image.FromFile("img\\img7.jpg") });
-            this.imageAccordion2.Add(new ThumbnailBox() { Caption = "night View", Thumb = Image.FromFile("img\\img8.jpg") });
+            this.imageAccordion2.Add(new Thumbnail("water",Image.FromFile("img\\img1.jpg")));
+            this.imageAccordion2.Add(new Thumbnail("boat",Image.FromFile("img\\img2.jpg")));
+            this.imageAccordion2.Add(new Thumbnail("flower",Image.FromFile("img\\img3.jpg")));
+            this.imageAccordion2.Add(new Thumbnail("House",Image.FromFile("img\\img4.jpg")));
+            this.imageAccordion2.Add(new Thumbnail("Sea", Image.FromFile("img\\img5.jpg")));
+            this.imageAccordion2.Add(new Thumbnail("mountain",Image.FromFile("img\\img6.jpg")));
+            this.imageAccordion2.Add(new Thumbnail("ligtes", Image.FromFile("img\\img7.jpg")));
+            this.imageAccordion2.Add(new Thumbnail( "night View", Image.FromFile("img\\img8.jpg") ));
             this.imageAccordion2.SelectThumnail(0);
+            imageAccordion2.HoverColor = Color.Orange;
+            imageAccordion2.SelectedColor = Color.DarkBlue ;
+            
         }
 
        
 
 
-        private void imageAccordion2_ThumbnailChanged(int OldIndex, int NewIndex, Image currentImage,string text)
+        private void imageAccordion2_ThumbnailChanged(int OldIndex, int NewIndex, Thumbnail thumbnail)
         {
-           thumbnailBox1.Thumb = currentImage;
-           thumbnailBox1.Caption = text;
+            pictureBox1.BackgroundImage = thumbnail.Image;
+            label1.Text = thumbnail.Text;
+            label1.Left = (panel1.Width - label1.Width) / 2;
         }
     }
 }

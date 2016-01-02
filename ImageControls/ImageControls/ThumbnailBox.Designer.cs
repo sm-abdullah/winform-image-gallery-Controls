@@ -50,6 +50,7 @@
             // ThumbPictureBox
             // 
             this.ThumbPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ThumbPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ThumbPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ThumbPictureBox.Location = new System.Drawing.Point(0, 22);
             this.ThumbPictureBox.Name = "ThumbPictureBox";
