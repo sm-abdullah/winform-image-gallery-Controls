@@ -114,15 +114,15 @@ namespace ImageControls
                 _ThumbTextPosition = ThumbTextPosition.Top;
                 InitializeComponent();
                 ThumbPictureBox.BackgroundImageLayout = ImageLayout.Stretch;
+                //when user clicks then raise selected Event
                 ThumbPictureBox.Click += delegate
                 {
-                   
                     if (this.Selected != null)
                     {
-                        
                         Selected(this);
                     }
                 };
+
                 thumbLabel.Click += delegate
                 {
                   
@@ -153,6 +153,7 @@ namespace ImageControls
 
                 this.Resize += ThumbnailBox_Resize;
                 this.Load += ThumbnailBox_Load;
+                //show the labe at teh center 
                 thumbLabel.Left = (this.Width - thumbLabel.Width) / 2;
 
             }
@@ -168,6 +169,7 @@ namespace ImageControls
             }
             private void adjust()
             {
+                //show the labe at the ceneter 
                 thumbLabel.Left = (this.labelPanel.Width - thumbLabel.Width) / 2;
                 OuterPanel.Height = this.Height - 6;
                 OuterPanel.Width = this.Width - 6;
@@ -180,20 +182,16 @@ namespace ImageControls
                 if (!IsSelected)
                 {
                     this.BackColor = this.HoverColor;
-                        
                 }
             }
 
             private void ThumbnailBox_MouseLeave(object sender, EventArgs e)
             {
-                if (!IsSelected) 
+                if (!IsSelected)
                 {
                     this.BackColor = Color.Silver;
                 }
             }
-
-
-
            
        }
     

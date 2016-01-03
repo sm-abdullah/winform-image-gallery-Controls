@@ -12,7 +12,7 @@ using System.Drawing.Drawing2D;
 namespace ImageControls
 {
 
-    internal partial class AccordionButton : Button
+    public partial class AccordionButton : Button
     {
 
         #region  Private 
@@ -20,6 +20,7 @@ namespace ImageControls
         private AccodionButtonFace _face;
         private bool isHover = false;
         private bool _isEnable = true;
+        private Color _normalColor = Color.Silver;
         #endregion
 
         #region Public 
@@ -79,6 +80,8 @@ namespace ImageControls
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
+                //if Mouse button up Set it To False
+                //because we will paint the button down state on behavlf of this.
                 isButtonDown = false;
             }
             base.OnMouseUp(e);
@@ -87,53 +90,66 @@ namespace ImageControls
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
+                //if mouse button down set True
                 isButtonDown = true;
             }
             base.OnMouseDown(e);
         }
         protected override void OnMouseEnter(EventArgs e)
         {
+            //if mouse enters we say hover true
             isHover = true;
             base.OnMouseEnter(e);
 
         }
         protected override void OnMouseLeave(EventArgs e)
         {
+            //if mouse leave we say hover false
             base.OnMouseLeave(e);
             isHover = false;
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-
-            var height = (this.Height - 30) / 2;
-            var width = (this.Width - 30) / 2;
+            //In order to make play Icon center
+            //get the Top ,left position asuming button height width is 30 pixels
+            var top = (this.Height - 30) / 2;
+            var left = (this.Width - 30) / 2; 
+            // it will store polygone points which draw the triangle
             Point[] Active = null;
-            Point[] ActiveOuter = null;
+            Point[] ActiveOuter = null; //it is outer border 
+            //default color 
             Color color = Color.Purple;
+            //if button is active and enable true
             if (isHover && _isEnable)
             {
+                //if  button is down
                 if (isButtonDown)
-                {
+                {  
+                    //set down color
                     color = DownColor;
                 }
                 else
                 {
+                    //set Hover Color
                     color = HoverColor;
                 }
             }
             else
             {
-                color = Color.Gray;
+                //if normal state set silver color
+                color = _normalColor;
             }
+
+
             LinearGradientBrush linearGradientBrush = new LinearGradientBrush(this.ClientRectangle, color, Color.White, 180f, true);
 
 
             if (Face == AccodionButtonFace.Left)
             {
                 //get polygone i.e triagnle with direction to Left
-                Active = new Point[] { new Point(width + 31, height - 1), new Point(width + 31, height + 31), new Point(width - 1, height + 15) };
+                Active = new Point[] { new Point(left + 31, top - 1), new Point(left + 31, top + 31), new Point(left - 1, top + 15) };
                 //draw outer line
-                ActiveOuter = new Point[] { new Point(width + 30, height), new Point(width + 30, height + 30), new Point(width, height + 15) };
+                ActiveOuter = new Point[] { new Point(left + 30, top), new Point(left + 30, top + 30), new Point(left, top + 15) };
 
                 linearGradientBrush = new LinearGradientBrush(this.ClientRectangle, color, Color.White, 180f, true);
                 linearGradientBrush.SetBlendTriangularShape(0.1f, 0.8f);
@@ -143,16 +159,16 @@ namespace ImageControls
             {
 
                 //get polygone i.e triagnle with direction to right
-                Active = new Point[] { new Point(width, height), new Point(width, height + 30), new Point(width + 30, height + 15) };
-                ActiveOuter = new Point[] { new Point(width - 1, height - 1), new Point(width - 1, height + 31), new Point(width + 31, height + 15) };
+                Active = new Point[] { new Point(left, top), new Point(left, top + 30), new Point(left + 30, top + 15) };
+                ActiveOuter = new Point[] { new Point(left - 1, top - 1), new Point(left - 1, top + 31), new Point(left + 31, top + 15) };
                 linearGradientBrush = new LinearGradientBrush(this.ClientRectangle, color, Color.White, 180f, true);
                 linearGradientBrush.SetBlendTriangularShape(0.9f, 0.8f);
             }
             else if (Face == AccodionButtonFace.Down)
             {
                 //get polygone i.e triagnle with direction to  down
-                Active = new Point[] { new Point(width, height), new Point(width + 15, height + 29), new Point(width + 30, height) };
-                ActiveOuter = new Point[] { new Point(width - 1, height - 1), new Point(width + 15, height + 30), new Point(width + 31, height - 1) };
+                Active = new Point[] { new Point(left, top), new Point(left + 15, top + 29), new Point(left + 30, top) };
+                ActiveOuter = new Point[] { new Point(left - 1, top - 1), new Point(left + 15, top + 30), new Point(left + 31, top - 1) };
 
                 linearGradientBrush = new LinearGradientBrush(this.ClientRectangle, color, Color.White, 90f, true);
                 linearGradientBrush.SetBlendTriangularShape(0.1f, 0.8f);
@@ -160,8 +176,8 @@ namespace ImageControls
             else if (Face == AccodionButtonFace.Up)
             {
                 //get polygone i.e triagnle with direction to up
-                Active = new Point[] { new Point(width + 2, height + 29), new Point(width + 15, height + 2), new Point(width + 29, height + 29) };
-                ActiveOuter = new Point[] { new Point(width, height + 30), new Point(width + 15, height), new Point(width + 30, height + 30) };
+                Active = new Point[] { new Point(left + 2, top + 29), new Point(left + 15, top + 2), new Point(left + 29, top + 29) };
+                ActiveOuter = new Point[] { new Point(left, top + 30), new Point(left + 15, top), new Point(left + 30, top + 30) };
 
                 linearGradientBrush = new LinearGradientBrush(this.ClientRectangle, color, Color.White, 90f, true);
                 linearGradientBrush.SetBlendTriangularShape(0.9f, 0.8f);
@@ -172,7 +188,7 @@ namespace ImageControls
             linearGradientBrush.Dispose();
 
             //now paint the polygon 
-            using (LinearGradientBrush brush = new LinearGradientBrush(new Point(width, height), new Point(width + 30, height + 30), Color.FromArgb(255, 90, 90, 90), color))
+            using (LinearGradientBrush brush = new LinearGradientBrush(new Point(left, top), new Point(left + 30, top + 30), Color.FromArgb(255, 90, 90, 90), color))
             {
                 e.Graphics.DrawPolygon(new Pen(Brushes.White, 1f), ActiveOuter);
                 e.Graphics.FillPolygon(brush, Active);

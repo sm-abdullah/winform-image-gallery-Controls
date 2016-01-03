@@ -1,7 +1,7 @@
 ﻿namespace ImageControls
 {
     
-   internal  partial class AccordionButton
+   public  partial class AccordionButton
     {
         /// <summary> 
         /// Required designer variable.
