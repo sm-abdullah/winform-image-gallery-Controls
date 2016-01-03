@@ -12,7 +12,7 @@ using System.Drawing.Drawing2D;
 namespace ImageControls
 {
 
-    public partial class AccordionButton : Button
+    internal partial class AccordionButton : Button
     {
 
         #region  Private 
