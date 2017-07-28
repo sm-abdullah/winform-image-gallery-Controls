@@ -60,6 +60,23 @@
     <Compile Include="ImageAccordion.designer.cs">
       <DependentUpon>ImageAccordion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageSilder\Transitions\BarsDown.cs" />
+    <Compile Include="ImageSilder\Transitions\BarsDowns.cs" />
+    <Compile Include="ImageSilder\Transitions\CircleIn.cs" />
+    <Compile Include="ImageSilder\ImageFrame.cs" />
+    <Compile Include="ImageSilder\ImageSliderBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageSilder\ImageSliderBox.Designer.cs">
+      <DependentUpon>ImageSliderBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageSilder\TransitionEffect.cs" />
+    <Compile Include="ImageSilder\Transitions\CircleOut.cs" />
+    <Compile Include="ImageSilder\Transitions\InRect.cs" />
+    <Compile Include="ImageSilder\Transitions\RotateClockWise.cs" />
+    <Compile Include="ImageSilder\Transitions\ScrollDown.cs" />
+    <Compile Include="ImageSilder\Transitions\Star.cs" />
+    <Compile Include="ImageSilder\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Thumbnail.cs" />
     <Compile Include="ThumbnailBox.cs">
@@ -69,6 +86,7 @@
       <DependentUpon>ThumbnailBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ThumbTextPosition.cs" />
+    <Compile Include="ImageSilder\Transitions\Transition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ImageControls.snk" />
@@ -81,6 +99,7 @@
       <DependentUpon>ThumbnailBox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
